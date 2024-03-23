@@ -12,8 +12,8 @@ import java.util.Scanner;
     Faça um programa que leia inteiros N, C e M e imprima a quantidade de chocolates que Osmar pode comer.
     C e M são inteiros positivos.
 
-    Entrada	Saída
-    10      6
+    Entrada saida
+    10       6
     2
     5
  */
@@ -22,9 +22,12 @@ public class Ex04 {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite quantos chocolates deseja comprar: ");
+
+        System.out.println("Digite quantos dinheiros você tem : ");
         int n = scanner.nextInt();
+        System.out.println("Digite quanto custa cada chocolate: ");
         int c = scanner.nextInt();
+        System.out.println("Digeite quantas embalagens são necessárias para ganhar um chocolate: ");
         int m = scanner.nextInt();
         Ex04 ex04 = new Ex04();
         System.out.println(ex04.compute( n,c,m));
@@ -33,14 +36,17 @@ public class Ex04 {
         //Escreva o resultado da chamada do método compute() aqui
     }
 
-    int compute(int n, int c, int m) {
-
-        int qttdChoc = n / c;
-        if (c < 0 && m < 0) return 0;
+    int compute(int dinheiro, int precoChocolate, int embalagensParaChocolateGratis) {
 
 
-        if (m % 5 == 0) qttdChoc ++;
+        int chocolatesComprados = dinheiro / precoChocolate;
+        int embalagensDevolvidas = chocolatesComprados;
 
-        return qttdChoc;
+        while (embalagensDevolvidas >= embalagensParaChocolateGratis) {
+            int chocolatesGratis = embalagensDevolvidas / embalagensParaChocolateGratis;
+            chocolatesComprados += chocolatesGratis;
+            embalagensDevolvidas = embalagensDevolvidas % embalagensParaChocolateGratis + chocolatesGratis;
+        }
+        return chocolatesComprados;
     }
 }
